@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For My Mayaluu ❤️</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@300;500;700&family=Playfair+Display:italic,wght@700&display=swap');
+
+        :root {
+            --primary-pink: #e0218a; 
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(224, 33, 138, 0.2);
+        }
+
+        /* Responsive Backgrounds */
+        .bg-page-1 { background-color: #fff5f8; }
+        .bg-page-2 { background-color: #f8f0ff; } 
+        .bg-page-3 { background-color: #f0f7ff; } 
+        .bg-page-4 { background-color: #fff0f0; } 
+        .bg-page-5 { background-color: #fdfaf0; } 
+        .bg-page-6 { background-color: #fff5f8; } 
+        .bg-page-7 { background-color: #9c0d5a; } 
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            color: #333;
+            transition: background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cursive { font-family: 'Dancing Script', cursive; }
+        .serif-italic { font-family: 'Playfair Display', serif; font-style: italic; }
+
+        #petals-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+        }
+
+        .page.active {
+            display: flex;
+            opacity: 1;
+            animation: pageIn 0.8s ease-out forwards;
+        }
+
+        @keyframes pageIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .btn-premium {
+            background: var(--primary-pink);
+            color: white;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(224, 33, 138, 0.3);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .photo-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        @media (min-width: 768px) {
+            .photo-container { grid-template-columns: repeat(3, 1fr); max-width: 800px; }
+        }
+
+        .polaroid {
+            background: white;
+            padding: 8px 8px 24px 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: rotate(var(--rot));
+        }
+
+        .polaroid img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        .letter-box {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            border-radius: 25px;
+            border: 1px solid var(--glass-border);
+            max-width: 500px;
+            width: 95%;
+            max-height: 60vh;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .choice-container { display: flex; gap: 15px; width: 100%; max-width: 350px; margin-top: 2rem; }
+        .btn-yes { background: #22c55e; color: white; flex: 2; padding: 15px; border-radius: 12px; font-weight: 800; border: none; cursor: pointer; }
+        .btn-no { background: #ef4444; color: white; flex: 1; padding: 15px; border-radius: 12px; font-weight: 800; transition: all 0.2s ease; border: none; cursor: pointer; }
+
+        .floating-emoji { position: fixed; pointer-events: none; z-index: 100; }
+    </style>
+</head>
+<body class="bg-page-1">
+
+    <div id="petals-container"></div>
+
+    <!-- Page 1 -->
+    <div id="page1" class="page active">
+        <h1 class="cursive text-6xl text-pink-600 mb-2">Happy Valentine's Day</h1>
+        <p class="serif-italic text-2xl text-pink-400 mb-10">My Dearest Mayaluu</p>
+        <button class="btn-premium" onclick="nextPage(2)">Open My Heart</button>
+    </div>
+
+    <!-- Page 2 -->
+    <div id="page2" class="page">
+        <h2 class="cursive text-5xl text-purple-700 mb-6">A Promise...</h2>
+        <div class="text-9xl mb-6">💐</div>
+        <p class="serif-italic text-xl text-purple-600 px-6 max-w-md">"I promise to one day place a real bouquet in your hands."</p>
+        <button class="btn-premium mt-10" onclick="nextPage(3)">Next</button>
+    </div>
+
+    <!-- Page 3 -->
+    <div id="page3" class="page">
+        <h2 class="cursive text-5xl text-blue-700 mb-8">The Reason I Smile</h2>
+        <p class="text-lg text-blue-500 mb-10">Want to see who's always on my mind?</p>
+        <button class="btn-premium" onclick="nextPage(4)">Show Me 💕</button>
+    </div>
+
+    <!-- Page 4 -->
+    <div id="page4" class="page">
+        <h1 class="cursive text-5xl text-rose-600 mb-8">It's Always Been You</h1>
+        <div class="photo-container mb-8">
+            <div class="polaroid" style="--rot: -3deg"><img src="https://i.postimg.cc/Hx6zWgXq/photo1.jpg" referrerpolicy="no-referrer"></div>
+            <div class="polaroid" style="--rot: 2deg"><img src="https://i.postimg.cc/ydLj6Hc2/photo2.jpg" referrerpolicy="no-referrer"></div>
+            <div class="polaroid" style="--rot: -1deg"><img src="https://i.postimg.cc/8csHj0m0/photo3.jpg" referrerpolicy="no-referrer"></div>
+            <div class="polaroid" style="--rot: 4deg"><img src="https://i.postimg.cc/WztnhHwX/photo4.jpg" referrerpolicy="no-referrer"></div>
+            <div class="polaroid" style="--rot: -2deg"><img src="https://i.postimg.cc/6qT0ymfj/photo5.jpg" referrerpolicy="no-referrer"></div>
+            <div class="polaroid" style="--rot: 3deg"><img src="https://i.postimg.cc/SsgdQhc0/photo6.jpg" referrerpolicy="no-referrer"></div>
+        </div>
+        <button class="btn-premium" onclick="nextPage(5)">Read My Letter</button>
+    </div>
+
+    <!-- Page 5 -->
+    <div id="page5" class="page">
+        <div class="letter-box">
+            <h2 class="cursive text-4xl text-amber-800 mb-4">Dearest Mayaluu,</h2>
+            <div class="text-gray-700 space-y-4 text-sm md:text-base leading-relaxed">
+                <p>I still remember the first time I saw you during our first year of college. From that very moment, I felt a connection. Every single day after that, I would check whether you had come to college, just hoping to catch a glimpse of you.</p>
+                <p>When we were in 12th grade and our final exams were coming to an end, I remember the last day so clearly. I truly wanted to say goodbye to you, but I couldn’t find the courage.</p>
+                <p>It has been three years now, and I still can’t believe that we are finally together. The day you told me that you loved me—believe me—I was the happiest person in the world.</p>
+                <p>Pojaaa, thank you for being in my life. You have made it more beautiful. And remember, <span class="font-bold text-pink-600">I love you more</span>—because I am taller and bigger than you! 😜</p>
+                <p class="cursive text-right text-2xl text-pink-600 mt-6">- Always yours.</p>
+            </div>
+        </div>
+        <button class="btn-premium mt-8" onclick="nextPage(6)">One Last Thing</button>
+    </div>
+
+    <!-- Page 6 -->
+    <div id="page6" class="page">
+        <h2 class="cursive text-5xl text-pink-700 mb-4">Final Question...</h2>
+        <div class="text-6xl mb-8">💖</div>
+        <h3 class="text-2xl font-bold text-gray-700">Will you be my Valentine, Sweetie?</h3>
+        <div class="choice-container">
+            <button id="yes-btn" class="btn-yes" onclick="nextPage(7)">YES!</button>
+            <button id="no-btn" class="btn-no" onclick="handleNo()">No</button>
+        </div>
+    </div>
+
+    <!-- Page 7 -->
+    <div id="page7" class="page">
+        <div class="text-white">
+            <div class="text-9xl mb-6">🫂</div>
+            <h1 class="cursive text-7xl md:text-8xl mb-4">I LOVE YOU!</h1>
+            <p class="text-2xl opacity-90 font-bold mb-10">You're stuck with me now! 🥰</p>
+            <button class="bg-white/20 border border-white/50 text-white px-8 py-3 rounded-full text-sm font-bold backdrop-blur-sm" onclick="resetGame()">Start Over</button>
+        </div>
+    </div>
+
+    <script>
+        let petalInterval = 1000;
+        let timer;
+        let noCount = 0;
+        const noMessages = ["Are you sure?", "Think again", "Pojaaa", "Oii marr khani ho", "No chance!"];
+
+        function startPetals() {
+            if (timer) clearInterval(timer);
+            timer = setInterval(createPetal, petalInterval);
+        }
+
+        function createPetal() {
+            const container = document.getElementById('petals-container');
+            const p = document.createElement('div');
+            const items = ['🌸', '💗', '🌹', '✨', '❤️'];
+            p.innerHTML = items[Math.floor(Math.random() * items.length)];
+            p.className = 'floating-emoji';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.top = '-20px';
+            p.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            container.appendChild(p);
+            p.animate([{ transform: 'translateY(0) rotate(0deg)', opacity: 1 }, { transform: `translateY(110vh) rotate(360deg)`, opacity: 0 }], { duration: 5000 }).onfinish = () => p.remove();
+        }
+
+        function nextPage(num) {
+            document.body.className = 'bg-page-' + num;
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page' + num).classList.add('active');
+            
+            if (num === 4) petalInterval = 300;
+            else if (num === 7) petalInterval = 50;
+            else petalInterval = 1000;
+            
+            startPetals();
+            window.scrollTo(0, 0);
+        }
+
+        function handleNo() {
+            const noBtn = document.getElementById('no-btn');
+            const yesBtn = document.getElementById('yes-btn');
+            if (noCount < noMessages.length) {
+                noBtn.innerHTML = noMessages[noCount];
+                noBtn.style.transform = `scale(${1 - (noCount * 0.15)})`;
+                noCount++;
+            } else {
+                noBtn.innerHTML = "YES FOREVER!";
+                noBtn.style.backgroundColor = "#22c55e";
+                noBtn.style.transform = "scale(1)";
+                noBtn.onclick = () => nextPage(7);
+                yesBtn.innerHTML = "YES FOREVER!";
+            }
+        }
+
+        function resetGame() {
+            noCount = 0;
+            const noBtn = document.getElementById('no-btn');
+            const yesBtn = document.getElementById('yes-btn');
+            noBtn.innerHTML = "No";
+            noBtn.style.backgroundColor = "#ef4444";
+            noBtn.style.transform = "scale(1)";
+            noBtn.onclick = handleNo;
+            yesBtn.innerHTML = "YES!";
+            nextPage(1);
+        }
+
+        startPetals();
+    </script>
+</body>
+</html>
