@@ -18,6 +18,7 @@
         }
 
         /* Responsive Backgrounds */
+        .bg-page-0 { background-color: #1a1a1a; } /* Entry Screen */
         .bg-page-1 { background-color: #fff5f8; }
         .bg-page-2 { background-color: #f8f0ff; } 
         .bg-page-3 { background-color: #f0f7ff; } 
@@ -80,6 +81,26 @@
             font-size: 0.8rem;
         }
 
+        .input-lock {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            font-size: 1.1rem;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-lock:focus {
+            border-color: var(--primary-pink);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         .photo-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -124,14 +145,33 @@
         .btn-no { background: #ef4444; color: white; flex: 1; padding: 15px; border-radius: 12px; font-weight: 800; transition: all 0.2s ease; border: none; cursor: pointer; }
 
         .floating-emoji { position: fixed; pointer-events: none; z-index: 100; }
+        
+        #lock-message { min-height: 24px; font-size: 0.9rem; margin-top: 10px; }
     </style>
 </head>
-<body class="bg-page-1">
+<body class="bg-page-0">
 
     <div id="petals-container"></div>
 
-    <!-- Page 1 -->
-    <div id="page1" class="page active">
+    <!-- Page 0: Romantic Lock Screen -->
+    <div id="page0" class="page active">
+        <div class="text-white mb-8">
+            <div class="text-6xl mb-6 animate-pulse">✨</div>
+            <h2 class="cursive text-5xl mb-3">Key to My Heart</h2>
+            <p class="opacity-80 italic text-sm">When did our beautiful journey begin?</p>
+        </div>
+        
+        <input type="text" id="passwordInput" class="input-lock" placeholder="Enter the date..." autocomplete="off">
+        
+        <button class="btn-premium" onclick="checkPassword()">Unlock</button>
+        
+        <div id="lock-message" class="text-pink-400 font-medium"></div>
+        
+        <button class="mt-12 text-white/30 text-xs tracking-widest uppercase" onclick="showHint()">Hint</button>
+    </div>
+
+    <!-- Page 1: Home -->
+    <div id="page1" class="page">
         <h1 class="cursive text-6xl text-pink-600 mb-2">Happy Valentine's Day</h1>
         <p class="serif-italic text-2xl text-pink-400 mb-10">My Dearest Mayaluu</p>
         <button class="btn-premium" onclick="nextPage(2)">Open My Heart</button>
@@ -174,7 +214,7 @@
                 <p>I still remember the first time I saw you during our first year of college. From that very moment, I felt a connection. Every single day after that, I would check whether you had come to college, just hoping to catch a glimpse of you.</p>
                 <p>When we were in 12th grade and our final exams were coming to an end, I remember the last day so clearly. I truly wanted to say goodbye to you, but I couldn’t find the courage.</p>
                 <p>It has been three years now, and I still can’t believe that we are finally together. The day you told me that you loved me—believe me—I was the happiest person in the world.</p>
-                <p>Pooja, thank you for being in my life. You have made it more beautiful. And remember, <span class="font-bold text-pink-600">I love you more</span>—because I am taller and bigger than you! 😜</p>
+                <p>Pojaaa, thank you for being in my life. You have made it more beautiful. And remember, <span class="font-bold text-pink-600">I love you more</span>—because I am taller and bigger than you! 😜</p>
                 <p class="cursive text-right text-2xl text-pink-600 mt-6">- Always yours.</p>
             </div>
         </div>
@@ -208,6 +248,44 @@
         let noCount = 0;
         const noMessages = ["Are you sure?", "Think again", "Pojaaa", "Oii marr khani ho", "No chance!"];
 
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value.trim().toLowerCase();
+            const msg = document.getElementById('lock-message');
+            
+            // Normalize input to check multiple formats for January 1, 2026
+            const validPasswords = [
+                "january 1, 2026",
+                "january 1 2026",
+                "1 january 2026",
+                "1st january 2026",
+                "01/01/2026",
+                "1/1/2026",
+                "01/1/2026",
+                "1/01/2026",
+                "112026",
+                "01012026"
+            ];
+
+            if (validPasswords.includes(input)) {
+                msg.style.color = "#22c55e";
+                msg.innerHTML = "Access Granted... I Love You! ❤️";
+                setTimeout(() => {
+                    nextPage(1);
+                }, 1000);
+            } else {
+                msg.style.color = "#f472b6";
+                msg.innerHTML = "Not quite, try again? 🥺";
+                document.getElementById('passwordInput').classList.add('animate-bounce');
+                setTimeout(() => {
+                    document.getElementById('passwordInput').classList.remove('animate-bounce');
+                }, 500);
+            }
+        }
+
+        function showHint() {
+            document.getElementById('lock-message').innerHTML = "Example: 8 March 2026";
+        }
+
         function startPetals() {
             if (timer) clearInterval(timer);
             timer = setInterval(createPetal, petalInterval);
@@ -231,7 +309,8 @@
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('page' + num).classList.add('active');
             
-            if (num === 4) petalInterval = 300;
+            if (num === 0) petalInterval = 5000;
+            else if (num === 4) petalInterval = 300;
             else if (num === 7) petalInterval = 50;
             else petalInterval = 1000;
             
@@ -270,5 +349,4 @@
         startPetals();
     </script>
 </body>
-
 </html>
